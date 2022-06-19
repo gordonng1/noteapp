@@ -5,6 +5,7 @@
 #ifndef NOTEAPP_NOTE_H
 #define NOTEAPP_NOTE_H
 #include <string>
+#include <iostream>
 
 class Note {
 private:
@@ -25,6 +26,8 @@ public:
 
     // returns content of the note
     std::string getContent();
+
+
 };
 
 
