@@ -1,0 +1,3 @@
+/Users/gordonng/CLionProjects/noteapp/cmake-build-debug/CMakeFiles/noteapp.dir
+/Users/gordonng/CLionProjects/noteapp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/gordonng/CLionProjects/noteapp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
