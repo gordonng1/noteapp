@@ -52,22 +52,6 @@ void setNoteContent(string &contentIn) {
     cout << "Your note reads: " << contentIn << endl;
 }
 
-int getIntInput() {
-    int result;
-    cin >> result; // if input cant be read, cin's failbit is set, ie., cant read from stream
-    while (cin.fail()) {  // if cin is errored right now
-        cout << "BAD" << endl;
-        cin.clear(); // #clear will unset the failbit, ie., error state unset
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // #ignore clears the rest of the input stream
-        cin >> result; // try to take another input
-    }
-
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // #ignore clears the rest of the input stream
-    return result;
-}
-// [] input stream
-
-
 // creates note
 void createNewNote() {
     Note n;
@@ -87,9 +71,9 @@ void createNewNote() {
     notes.insert(pair<string, string>(n.getName(), n.getContent()));
 }
 
-void printNoteNames() {
-    for (int i = 0; i < noteNames.size(); i++) {
-        cout << noteNames[i] << endl;
+void printNoteNames(const map<string,string>& map) {
+    for (const auto &it : map) {
+        cout << it.first << endl;
     }
 }
 
@@ -97,18 +81,12 @@ void viewNote() {
     string note;
     cout << "Which note would you like to view: \n";
     // prints out all note names
-    printNoteNames();
-
-    cin.clear();
-    cin.ignore(256, '\n');
+    printNoteNames(notes);
 
     getline(cin, note);
 
     if (notes.find(note) != notes.end()) {
         cout << notes.find(note)->second << endl;
-
-        cin.clear();
-        cin.ignore(256, '\n');
     }
 
     else {
@@ -118,12 +96,13 @@ void viewNote() {
 
 void deleteNote() {
     string noteName;
-    cout << "insert list of all notes\n";
+    printNoteNames(notes);
     cout << "Which note would you like to delete: \n";
-    cin >> noteName;
+    noteName = getStringInput();
 
     if (notes.find(noteName) != notes.end()) {
         notes.erase(noteName);
+
     }
 }
 
@@ -146,7 +125,7 @@ void takeInput() {
 
     }
     else if (option == 4) {
-        printNoteNames();
+        printNoteNames(notes);
 
     }
     else if (option == 5) {
@@ -158,7 +137,7 @@ void takeInput() {
     }
 
     else {
-        cout << "Invalid Option";
+        cout << "Invalid Option\n";
     }
 }
 
