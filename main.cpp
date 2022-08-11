@@ -95,14 +95,30 @@ void viewNote() {
 }
 
 void deleteNote() {
-    string noteName;
     printNoteNames(notes);
     cout << "Which note would you like to delete: \n";
-    noteName = getStringInput();
+    string noteName = getStringInput();
 
     if (notes.find(noteName) != notes.end()) {
         notes.erase(noteName);
+    }
+    else {
+        cout << "Note not found\n";
+    }
 
+}
+
+void editNote() {
+    printNoteNames(notes);
+    cout << "Which note would you like to edit: \n";
+    string noteName = getStringInput();
+
+    if (notes.find(noteName) != notes.end()) {
+        cout << "Enter new content for " << noteName << ": \n";
+        notes[noteName] = getStringInput();
+    }
+    else {
+        cout << "Note not found\n";
     }
 }
 
@@ -129,6 +145,7 @@ void takeInput() {
 
     }
     else if (option == 5) {
+        editNote();
 
     }
     else if (option == 6) {
