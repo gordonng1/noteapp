@@ -165,8 +165,5 @@ int main() {
         printOptions();
         takeInput();
     }
-
-
-
     return 0;
 }
