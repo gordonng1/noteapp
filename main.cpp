@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <map>
 #include "Note.h"
 #include <vector>
@@ -16,7 +17,9 @@ void printOptions() {
     cout << "3. Delete Note\n";
     cout << "4. View List of All Notes\n";
     cout << "5. Edit Existing Note\n";
-    cout << "6. Quit Program\n\n";
+    cout << "6. Export Note to Computer\n";
+    cout << "7. Import Note from Computer\n";
+    cout << "8. Quit Program\n\n";
 }
 
 string getStringInput() {
@@ -39,7 +42,7 @@ void setNoteName(string &nameIn) {
     //grabs input from user and then clears input stream
     nameIn = getStringInput();
 
-    cout << "Note has been named: " << nameIn << endl;
+    cout << "Note has been named: " << nameIn << endl << endl;
 }
 
 // allows user to set the contents of the note
@@ -49,7 +52,7 @@ void setNoteContent(string &contentIn) {
     //grabs input from user and then clears input stream
     contentIn = getStringInput();
 
-    cout << "Your note reads: " << contentIn << endl;
+    cout << "Your note reads: " << contentIn << endl << endl;
 }
 
 // creates note
@@ -72,9 +75,11 @@ void createNewNote() {
 }
 
 void printNoteNames(const map<string,string>& map) {
+    cout << "LIST OF NOTE NAMES:\n";
     for (const auto &it : map) {
         cout << it.first << endl;
     }
+    cout << endl;
 }
 
 void viewNote() {
@@ -122,6 +127,28 @@ void editNote() {
     }
 }
 
+void exportNote() {
+    printNoteNames(notes);
+    cout << "Which note would you like to export: \n";
+
+    string noteName = getStringInput();
+
+    if (notes.find(noteName) != notes.end()) {
+
+        // adds .txt to end of note name to create new .txt file
+        string modifiedNoteName = noteName + ".txt";
+
+        // creates and opens file with note name
+        ofstream os(modifiedNoteName);
+
+        // writes content to new file
+        os << notes.find(noteName)->second;
+
+        // closes the file
+        os.close();
+    }
+}
+
 void takeInput() {
     int option;
     cout << "Enter Option: \n";
@@ -134,21 +161,23 @@ void takeInput() {
     }
     else if (option == 2) {
         viewNote();
-
     }
     else if (option == 3) {
         deleteNote();
-
     }
     else if (option == 4) {
         printNoteNames(notes);
-
     }
     else if (option == 5) {
         editNote();
-
     }
     else if (option == 6) {
+        exportNote();
+    }
+    else if (option == 7) {
+
+    }
+    else if (option == 8) {
         quit = true;
         cout << "Quitting Notes App\n";
     }
@@ -157,8 +186,6 @@ void takeInput() {
         cout << "Invalid Option\n";
     }
 }
-
-
 
 int main() {
     while (!quit) {
